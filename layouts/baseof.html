@@ -4,6 +4,7 @@
 <head>
   <title>{{ block "title" . }}{{ .Site.Params.HeadTitle | default .Site.Title }}{{ end }}</title>
   {{ partial "head.html" . }}
+
 </head>
 
 {{ $csClass := "colorscheme-light" }}
@@ -26,10 +27,10 @@
   </main>
 
   {{ if .HasShortcode "mermaid" }}
-  <script src="https://cdn.jsdelivr.net/npm/mermaid@9.3.0/dist/mermaid.min.js"
-    integrity="sha256-QdTG1YTLLTwD3b95jLqFxpQX9uYuJMNAtVZgwKX4oYU=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@11.13.0/dist/mermaid.min.js"
+    integrity="sha256-PiACvzM5B/rnwdaGC7x49dpBe8cLZPPSJoWBuguouWo=" crossorigin="anonymous"></script>
   <script>
-    mermaid.initialize({ startOnLoad: true });
+    mermaid.initialize({startOnLoad: true});
   </script>
   {{ end }}
 
@@ -65,8 +66,11 @@
   {{ end }}
   {{ end }}
 
-
   {{ template "_internal/google_analytics.html" . }}
+
+  {{ if and .Site.Params.counterdev .Site.Params.counterdev.id }}
+  {{- partial "analytics/counterdev" . -}}
+  {{ end }}
 
   {{ if and .Site.Params.fathomAnalytics .Site.Params.fathomAnalytics.siteID }}
   {{- partial "analytics/fathom" . -}}
@@ -134,4 +138,5 @@
 
   {{- partial "body/extensions" . -}}
 </body>
+
 </html>
